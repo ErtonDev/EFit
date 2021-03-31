@@ -24,11 +24,17 @@ import subprocess
 from PySide2 import QtCore, QtGui, QtWidgets
 from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import *
+from pathlib import Path
+
+## SETUP
+################################################################################
+# client's path to find every resource in client's directories
+client_path = Path(__file__)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.setWindowIcon(QIcon("images/logo_efit.png"))
+        MainWindow.setWindowIcon(QIcon(str((client_path / "../images/logo_efit.png").resolve())))
         MainWindow.resize(400, 550)
         MainWindow.setMinimumSize(QtCore.QSize(400, 550))
         MainWindow.setMaximumSize(QtCore.QSize(400, 550))
@@ -279,21 +285,21 @@ class Ui_MainWindow(object):
         self.foto = QtWidgets.QLabel(self.centralwidget)
         self.foto.setGeometry(QtCore.QRect(40, 90, 311, 181))
         self.foto.setText("")
-        self.foto.setPixmap(QtGui.QPixmap("images/undraw_Login_re_4vu2.png"))
+        self.foto.setPixmap(QtGui.QPixmap(str((client_path / "../images/undraw_Login_re_4vu2.png").resolve())))
         self.foto.setScaledContents(True)
         self.foto.setObjectName("foto")
 
         self.userIcon = QtWidgets.QLabel(self.centralwidget)
         self.userIcon.setGeometry(QtCore.QRect(40, 290, 21, 21))
         self.userIcon.setText("")
-        self.userIcon.setPixmap(QtGui.QPixmap("images/profile.png"))
+        self.userIcon.setPixmap(QtGui.QPixmap(str((client_path / "../images/profile.png").resolve())))
         self.userIcon.setScaledContents(True)
         self.userIcon.setObjectName("userIcon")
 
         self.passIcon = QtWidgets.QLabel(self.centralwidget)
         self.passIcon.setGeometry(QtCore.QRect(40, 380, 21, 21))
         self.passIcon.setText("")
-        self.passIcon.setPixmap(QtGui.QPixmap("images/lock.png"))
+        self.passIcon.setPixmap(QtGui.QPixmap(str((client_path / "../images/lock.png").resolve())))
         self.passIcon.setScaledContents(True)
         self.passIcon.setObjectName("passIcon")
 
@@ -430,13 +436,14 @@ class Ui_MainWindow(object):
     def goto_login(self):
         userInput = self.userText.text().lower()
         passInput = self.passText.text().lower()
+
         try:
-            openAccount = io.open(f"accounts/{userInput}.txt", 'r')
+            openAccount = io.open((client_path / f"../accounts/{userInput}.txt").resolve(), 'r')
             readAccount = openAccount.readlines()
             openAccount.close()
             if passInput + '\n' == readAccount[0] or passInput == readAccount[0]:
                 # to remember who signed in:
-                rememberUser = io.open('running_data/actual_client.txt', 'w')
+                rememberUser = io.open((client_path / '../running_data/actual_client.txt').resolve(), 'w')
                 rememberUser.write(str(userInput))
                 rememberUser.close()
 
@@ -468,6 +475,7 @@ class Ui_MainWindow(object):
     def goto_register(self):
         userInput = self.userText.text().lower()
         passInput = self.passText.text().lower()
+
         if userInput == "" or passInput == "":
             registerPop = QMessageBox()
             registerPop.setWindowTitle("Error")
@@ -479,7 +487,7 @@ class Ui_MainWindow(object):
             registerPop_exe = registerPop.exec_()
         else:
             try:
-                checkRepe = io.open(f"accounts/{userInput}.txt", 'r')
+                checkRepe = io.open((client_path / f"../accounts/{userInput}.txt").resolve(), 'r')
                 checkRepe.close()
                 registerPop = QMessageBox()
                 registerPop.setWindowTitle("Error")
@@ -491,44 +499,44 @@ class Ui_MainWindow(object):
                 registerPop_exe = registerPop.exec_()
             except FileNotFoundError:
                 # creates the account
-                creaCuenta = io.open(f"accounts/{userInput}.txt", 'w')
+                creaCuenta = io.open((client_path / f"../accounts/{userInput}.txt").resolve(), 'w')
                 creaContra = passInput
                 creaCuenta.write(creaContra)
                 creaCuenta.close()
 
                 # creates repositories for account's info
-                creaRepositorio = os.makedirs(f"accounts_data/{userInput}_info", exist_ok = True)
+                creaRepositorio = os.makedirs(str((client_path / f"../accounts_data/{userInput}_info").resolve()), exist_ok = True)
 
                 # creates files for account's info
-                creaSafeBrazos = io.open(f"accounts_data/{userInput}_info/safe_{userInput}_brazos.txt", 'w')
+                creaSafeBrazos = io.open((client_path / f"../accounts_data/{userInput}_info/safe_{userInput}_brazos.txt").resolve(), 'w')
                 creaSafeBrazos.write("0")
                 creaSafeBrazos.close()
 
-                creaSafeEspalda = io.open(f"accounts_data/{userInput}_info/safe_{userInput}_espalda.txt", 'w')
+                creaSafeEspalda = io.open((client_path / f"../accounts_data/{userInput}_info/safe_{userInput}_espalda.txt").resolve(), 'w')
                 creaSafeEspalda.write("0")
                 creaSafeEspalda.close()
 
-                creaSafePectoral = io.open(f"accounts_data/{userInput}_info/safe_{userInput}_pectoral.txt", 'w')
+                creaSafePectoral = io.open((client_path / f"../accounts_data/{userInput}_info/safe_{userInput}_pectoral.txt").resolve(), 'w')
                 creaSafePectoral.write("0")
                 creaSafePectoral.close()
 
-                creaSafeAbdomen = io.open(f"accounts_data/{userInput}_info/safe_{userInput}_abdomen.txt", 'w')
+                creaSafeAbdomen = io.open((client_path / f"../accounts_data/{userInput}_info/safe_{userInput}_abdomen.txt").resolve(), 'w')
                 creaSafeAbdomen.write("0")
                 creaSafeAbdomen.close()
 
-                creaSafePiernas = io.open(f"accounts_data/{userInput}_info/safe_{userInput}_piernas.txt", 'w')
+                creaSafePiernas = io.open((client_path / f"../accounts_data/{userInput}_info/safe_{userInput}_piernas.txt").resolve(), 'w')
                 creaSafePiernas.write("0")
                 creaSafePiernas.close()
 
-                creaSafeFlexibilidad = io.open(f"accounts_data/{userInput}_info/safe_{userInput}_flexibilidad.txt", 'w')
+                creaSafeFlexibilidad = io.open((client_path / f"../accounts_data/{userInput}_info/safe_{userInput}_flexibilidad.txt").resolve(), 'w')
                 creaSafeFlexibilidad.write("0")
                 creaSafeFlexibilidad.close()
 
-                creaSafeVelocidad = io.open(f"accounts_data/{userInput}_info/safe_{userInput}_velocidad.txt", 'w')
+                creaSafeVelocidad = io.open((client_path / f"../accounts_data/{userInput}_info/safe_{userInput}_velocidad.txt").resolve(), 'w')
                 creaSafeVelocidad.write("0")
                 creaSafeVelocidad.close()
 
-                creaSafeFuerza = io.open(f"accounts_data/{userInput}_info/safe_{userInput}_fuerza.txt", 'w')
+                creaSafeFuerza = io.open((client_path / f"../accounts_data/{userInput}_info/safe_{userInput}_fuerza.txt").resolve(), 'w')
                 creaSafeFuerza.write("0")
                 creaSafeFuerza.close()
 

@@ -511,7 +511,7 @@ class Ui_MainWindow(object):
         pass
 
     def openTrainWindow(self):
-        subprocess.Popen(['python3', 'train.py'])  # Opens train window
+        subprocess.Popen(['python3', (client_path / '../train.py').resolve()])  # Opens train window
 
     def showTrainPreview(self, number = 0):
         if number == 0:

@@ -450,7 +450,7 @@ class Ui_MainWindow(object):
                 ## OPENS MAIN WINDOW
                 ############################################################
                 # subprocess module allows secondary tasks
-                subprocess.Popen(['python3', 'main.py']) # Opens main window
+                subprocess.Popen(['python', (client_path / '../main.py').resolve()]) # Opens main window NOTE: python3 4 linux, python 4 windows
                 sys.exit('login.py') # Closes
 
             else:

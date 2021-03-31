@@ -21,6 +21,11 @@ import io
 import random
 import subprocess
 from PySide2 import QtCore, QtGui, QtWidgets
+from pathlib import Path
+
+## SETUP
+################################################################################
+client_path = Path(__file__)
 
 ## GLOBALS
 ################################################################################
@@ -49,7 +54,7 @@ frasesMotivadoras = ["Adiós excusas, hola resultados.",
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.setWindowIcon(QtGui.QIcon("images/logo_efit.png"))
+        MainWindow.setWindowIcon(QtGui.QIcon(str((client_path / "../images/logo_efit.png").resolve())))
         MainWindow.resize(900, 600)
         MainWindow.setMinimumSize(QtCore.QSize(900, 600))
         MainWindow.setMaximumSize(QtCore.QSize(900, 600))
@@ -368,8 +373,8 @@ class Ui_MainWindow(object):
         self.statsLabelPiernas.setObjectName("statsLabelPiernas")
         self.statsLabelFlexibilidad = QtWidgets.QLabel(self.statsFrame)
         self.statsLabelFlexibilidad.setGeometry(QtCore.QRect(10, 170, 111, 20))
-        self.statsLabelFlexibilidad.setStyleSheet("border-radius: 10px;")
-        self.statsLabelFlexibilidad.setAlignment(QtCore.Qt.AlignCenter)
+        self.statsLabelFlexibilidad.setStyleSheet("padding-left: 10px;\n"
+"border-radius: 10px;")
         self.statsLabelFlexibilidad.setObjectName("statsLabelFlexibilidad")
         self.statsBtnPectoral = QtWidgets.QPushButton(self.statsFrame)
         self.statsBtnPectoral.setGeometry(QtCore.QRect(130, 70, 261, 21))
@@ -409,13 +414,13 @@ class Ui_MainWindow(object):
         self.statsBtnFlexibilidad.setObjectName("statsBtnFlexibilidad")
         self.statsLabelVelocidad = QtWidgets.QLabel(self.statsFrame)
         self.statsLabelVelocidad.setGeometry(QtCore.QRect(10, 200, 111, 21))
-        self.statsLabelVelocidad.setStyleSheet("border-radius: 10px;")
-        self.statsLabelVelocidad.setAlignment(QtCore.Qt.AlignCenter)
+        self.statsLabelVelocidad.setStyleSheet("padding-left: 10px;\n"
+"border-radius: 10px;")
         self.statsLabelVelocidad.setObjectName("statsLabelVelocidad")
         self.statsLabelFuerza = QtWidgets.QLabel(self.statsFrame)
         self.statsLabelFuerza.setGeometry(QtCore.QRect(10, 230, 111, 21))
-        self.statsLabelFuerza.setStyleSheet("border-radius: 10px;")
-        self.statsLabelFuerza.setAlignment(QtCore.Qt.AlignCenter)
+        self.statsLabelFuerza.setStyleSheet("padding-left: 10px;\n"
+"border-radius: 10px;")
         self.statsLabelFuerza.setObjectName("statsLabelFuerza")
         self.statsBtnVelocidad = QtWidgets.QPushButton(self.statsFrame)
         self.statsBtnVelocidad.setGeometry(QtCore.QRect(130, 200, 261, 20))

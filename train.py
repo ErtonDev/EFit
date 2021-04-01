@@ -19,45 +19,48 @@
 ################################################################################
 import io
 from PySide2 import QtCore, QtGui, QtWidgets
+from pathlib import Path
 
 ## SETUP
 ################################################################################
+client_path = Path()
+
 def cleanRunningData():
     # elimina los datos del último entrenamiento que se quería registrar para preparar el nuevo y que no interfiera
-    open_running_data = io.open("running_data/preview_train.txt", 'w')
+    open_running_data = io.open((client_path / "../running_data/preview_train.txt").resolve(), 'w')
     open_running_data.write("")
     open_running_data.close()
 
     # lo mismo para los archivos encargados de la suma de puntos de actividad
-    open_running_abdomen = io.open("running_data/client_abdomen.txt", 'w')
+    open_running_abdomen = io.open((client_path / "../running_data/client_abdomen.txt").resolve(), 'w')
     open_running_abdomen.write("0")
     open_running_abdomen.close()
 
-    open_running_brazos = io.open("running_data/client_brazos.txt", 'w')
+    open_running_brazos = io.open((client_path / "../running_data/client_brazos.txt").resolve(), 'w')
     open_running_brazos.write("0")
     open_running_brazos.close()
 
-    open_running_espalda = io.open("running_data/client_espalda.txt", 'w')
+    open_running_espalda = io.open((client_path / "../running_data/client_espalda.txt").resolve(), 'w')
     open_running_espalda.write("0")
     open_running_espalda.close()
 
-    open_running_flexibilidad = io.open("running_data/client_flexibilidad.txt", 'w')
+    open_running_flexibilidad = io.open((client_path / "../running_data/client_flexibilidad.txt").resolve(), 'w')
     open_running_flexibilidad.write("0")
     open_running_flexibilidad.close()
 
-    open_running_fuerza = io.open("running_data/client_fuerza.txt", 'w')
+    open_running_fuerza = io.open((client_path / "../running_data/client_fuerza.txt").resolve(), 'w')
     open_running_fuerza.write("0")
     open_running_fuerza.close()
 
-    open_running_pectoral = io.open("running_data/client_pectoral.txt", 'w')
+    open_running_pectoral = io.open((client_path / "../running_data/client_pectoral.txt").resolve(), 'w')
     open_running_pectoral.write("0")
     open_running_pectoral.close()
 
-    open_running_piernas = io.open("running_data/client_piernas.txt", 'w')
+    open_running_piernas = io.open((client_path / "../running_data/client_piernas.txt").resolve(), 'w')
     open_running_piernas.write("0")
     open_running_piernas.close()
 
-    open_running_velocidad = io.open("running_data/client_velocidad.txt", 'w')
+    open_running_velocidad = io.open((client_path / "../running_data/client_velocidad.txt").resolve(), 'w')
     open_running_velocidad.write("0")
     open_running_velocidad.close()
 
@@ -101,7 +104,7 @@ class Ui_MainWindow(object):
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Highlight, brush)
         MainWindow.setPalette(palette)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("images/logo_efit_NEW.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(str((client_path / "../images/logo_efit_NEW.png").resolve())), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -189,7 +192,7 @@ class Ui_MainWindow(object):
         self.image = QtWidgets.QLabel(self.centralwidget)
         self.image.setGeometry(QtCore.QRect(10, 140, 231, 141))
         self.image.setText("")
-        self.image.setPixmap(QtGui.QPixmap("images/undraw_finish_line_katerina_limpitsouni_xy20.png"))
+        self.image.setPixmap(QtGui.QPixmap(str((client_path / "../images/undraw_finish_line_katerina_limpitsouni_xy20.png").resolve())))
         self.image.setScaledContents(True)
         self.image.setObjectName("image")
         self.addBtn = QtWidgets.QPushButton(self.centralwidget)
@@ -270,7 +273,7 @@ class Ui_MainWindow(object):
 
     # actualiza la preview del entrenamiento
     def updatePreview(self):
-        read_preview = io.open("running_data/preview_train.txt", 'r')
+        read_preview = io.open((client_path / "../running_data/preview_train.txt").resolve(), 'r')
         preview = read_preview.read()
 
         # aplica cambios para mostrar la preview
@@ -284,7 +287,7 @@ class Ui_MainWindow(object):
             ## Aplica a la preview
 
             # write preview, primero mira si ya hay una linea escrita
-            check_lines = io.open("running_data/preview_train.txt", 'r')
+            check_lines = io.open((client_path / "../running_data/preview_train.txt").resolve(), 'r')
             line_one = check_lines.readlines()
             check_lines.close()
 
@@ -292,19 +295,19 @@ class Ui_MainWindow(object):
             try:
                 if line_one[0] == "":
                     # no enter
-                    write_preview = io.open("running_data/preview_train.txt", 'a')
+                    write_preview = io.open((client_path / "../running_data/preview_train.txt").resolve(), 'a')
                     write_preview.write(f"{exercise}: {cant}")
                     write_preview.close()
 
                 else:
                     # enter
-                    write_preview = io.open("running_data/preview_train.txt", 'a')
+                    write_preview = io.open((client_path / "../running_data/preview_train.txt").resolve(), 'a')
                     write_preview.write(f"\n{exercise}: {cant}")
                     write_preview.close()
 
             except IndexError:
                 # no enter
-                write_preview = io.open("running_data/preview_train.txt", 'a')
+                write_preview = io.open((client_path / "../running_data/preview_train.txt").resolve(), 'a')
                 write_preview.write(f"{exercise}: {cant}")
                 write_preview.close()
 
@@ -314,12 +317,12 @@ class Ui_MainWindow(object):
             ## Aplica a los puntos antes de sumarse del cliente
             try:
                 # mira la cantidad actual, que al principio siempre será 0
-                client_file = io.open(f"running_data/client_{category.lower()}.txt", 'r')
+                client_file = io.open((client_path / f"../running_data/client_{category.lower()}.txt").resolve(), 'r')
                 actual_val = client_file.read()
                 client_file.close()
 
                 # haz la suma y aplica los cambios
-                prepare_sum = io.open(f"running_data/client_{category.lower()}.txt", 'w')
+                prepare_sum = io.open((client_path / f"../running_data/client_{category.lower()}.txt").resolve(), 'w')
                 prepare_sum.write("")
                 prepare_sum.write(int(actual_val) + cant)
                 prepare_sum.close()

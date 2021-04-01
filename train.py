@@ -23,7 +23,7 @@ from pathlib import Path
 
 ## SETUP
 ################################################################################
-client_path = Path()
+client_path = Path(__file__)
 
 def cleanRunningData():
     # elimina los datos del último entrenamiento que se quería registrar para preparar el nuevo y que no interfiera

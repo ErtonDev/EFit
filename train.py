@@ -321,15 +321,104 @@ class Ui_MainWindow(object):
                 actual_val = client_file.read()
                 client_file.close()
 
-                # haz la suma y aplica los cambios
-                prepare_sum = io.open((client_path / f"../running_data/client_{category.lower()}.txt").resolve(), 'w')
-                prepare_sum.write("")
-                prepare_sum.write(int(actual_val) + cant)
-                prepare_sum.close()
+                # haz la suma y aplica los cambios, pero antes mira si es un ejercicio de multiples categorías
+                if exercise == "Pesas":
+                    # mira la cantidad actual
+                    client_file = io.open((client_path / "../running_data/client_brazos.txt").resolve(), 'r')
+                    actual_val1 = client_file.read()
+                    client_file.close()
+
+                    client_file = io.open((client_path / "../running_data/client_fuerza.txt").resolve(), 'r')
+                    actual_val2 = client_file.read()
+                    client_file.close()
+
+                    # aplica la suma
+                    prepare_sum = io.open((client_path / "../running_data/client_brazos.txt").resolve(), 'w')
+                    prepare_sum.write("")
+                    prepare_sum.write(str(int(actual_val1) + cant))
+                    prepare_sum.close()
+
+                    prepare_sum = io.open((client_path / "../running_data/client_fuerza.txt").resolve(), 'w')
+                    prepare_sum.write("")
+                    prepare_sum.write(str(int(actual_val2) + round(cant / 1.5)))
+                    prepare_sum.close()
+
+                else:
+                    prepare_sum = io.open((client_path / f"../running_data/client_{category.lower()}.txt").resolve(), 'w')
+                    prepare_sum.write("")
+                    prepare_sum.write(str(int(actual_val) + cant))
+                    prepare_sum.close()
 
             except FileNotFoundError:
                 # que significaría que el ejercicio del cliente está en la categoría Otros
-                pass
+                if exercise == "Estiramientos":
+                    # revisa esta categoría
+                    client_file = io.open((client_path / "../running_data/client_flexibilidad.txt").resolve(), 'r')
+                    actual_val = client_file.read()
+                    client_file.close()
+
+                    # añade a flexibilidad
+                    prepare_sum = io.open((client_path / "../running_data/client_flexibilidad.txt").resolve(), 'w')
+                    prepare_sum.write("")
+
+                    # en función del tiempo que se ha estirado el valor será mayor o menor
+                    if cant >= 600:
+                        prepare_sum.write(str(int(actual_val) + 100))
+                    else:
+                        prepare_sum.write(str(int(actual_val) + 25))
+
+                    prepare_sum.close()
+
+                if exercise == "Calentiamiento":
+                    # revisa esta categoría
+                    client_file = io.open((client_path / "../running_data/client_velocidad.txt").resolve(), 'r')
+                    actual_val = client_file.read()
+                    client_file.close()
+
+                    # añade a velocidad
+                    prepare_sum = io.open((client_path / "../running_data/client_velocidad.txt").resolve(), 'w')
+                    prepare_sum.write("")
+                    prepare_sum.write(str(int(actual_val) + round(cant / 20)))
+                    prepare_sum.close()
+
+                if exercise == "Burpies":
+                    # revisa las diferentes categorías
+                    client_file = io.open((client_path / "../running_data/client_brazos.txt").resolve(), 'r')
+                    actual_val1 = client_file.read()
+                    client_file.close()
+
+                    client_file = io.open((client_path / "../running_data/client_pectoral.txt").resolve(), 'r')
+                    actual_val2 = client_file.read()
+                    client_file.close()
+
+                    client_file = io.open((client_path / "../running_data/client_piernas.txt").resolve(), 'r')
+                    actual_val3 = client_file.read()
+                    client_file.close()
+
+                    client_file = io.open((client_path / "../running_data/client_fuerza.txt").resolve(), 'r')
+                    actual_val4 = client_file.read()
+                    client_file.close()
+
+                    # añade
+                    prepare_sum = io.open((client_path / "../running_data/client_brazos.txt").resolve(), 'w')
+                    prepare_sum.write("")
+                    prepare_sum.write(str(int(actual_val1) + cant))
+                    prepare_sum.close()
+
+                    prepare_sum = io.open((client_path / "../running_data/client_pectoral.txt").resolve(), 'w')
+                    prepare_sum.write("")
+                    prepare_sum.write(str(int(actual_val2) + round(cant / 2)))
+                    prepare_sum.close()
+
+                    prepare_sum = io.open((client_path / "../running_data/client_piernas.txt").resolve(), 'w')
+                    prepare_sum.write("")
+                    prepare_sum.write(str(int(actual_val3) + cant))
+                    prepare_sum.close()
+
+                    prepare_sum = io.open((client_path / "../running_data/client_fuerza.txt").resolve(), 'w')
+                    prepare_sum.write("")
+                    prepare_sum.write(str(int(actual_val4) + round(cant / 1.5)))
+                    prepare_sum.close()
 
     # registra el entrenamiento
     def registerTrain(self):

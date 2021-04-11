@@ -1,2 +1,2 @@
-Dominadas abiertas: 4
-Flexiones abiertas: 40
+Flexiones cerradas: 4
+Flexiones cerradas: 4

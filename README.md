@@ -1,16 +1,13 @@
-# EFit
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ErtonDev/EFit/main/images/logo_efit.png" alt="drawing" width="75"/>
+  <h1 align="center">EFit</h1>
+</p>
+
 [![Python 3.6](https://img.shields.io/badge/python-3.9-yellow.svg)](https://www.python.org/)
 [![Build](https://img.shields.io/badge/Supported_OS-Linux-orange.svg)]()
 [![Build](https://img.shields.io/badge/Supported_OS-Windows-orange.svg)]()
 
 EFit is a sport management software in spanish for a school project.
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/ErtonDev/EFit/main/images/logo_efit.png" alt="drawing" width="400"/>
-  <img src="https://raw.githubusercontent.com/ErtonDev/EFit/main/images/logo_efit_NEW.png" alt="drawing" width="400"/>
-</p>
-
-> EFit logo and logo for new training windows
 
 ## Resources
 EFit uses the following modules:
